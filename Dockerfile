@@ -33,8 +33,10 @@ ADD execute_test.sh /root/automationFramework
 RUN mkdir -p /root/automationFramework/reports && \
     chmod +x /root/automationFramework/execute_test.sh
 
+ENV pruba 2
+
 VOLUME [/root/automationFramework/reports/allure-results]
 VOLUME [/root/automationFramework/reports/surefire-reports]
 
 # Execute tests
-CMD ["/root/automationFramework/execute_test.sh"]
+ENTRYPOINT ["/root/automationFramework/execute_test.sh"]

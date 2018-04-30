@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:test-suite start="1525112454591" stop="1525112486432" version="1.4.23" xmlns:ns2="urn:model.allure.qatools.yandex.ru">
+    <name>Smoke test Suite : Smoke Tests</name>
+    <title>Smoke test Suite : Smoke Tests</title>
+    <test-cases>
+        <test-case start="1525112468787" stop="1525112470409" status="passed">
+            <name>testImac</name>
+            <steps/>
+            <attachments/>
+            <labels>
+                <label name="host" value="60300424f02f"/>
+                <label name="thread" value="52@60300424f02f.main(1)"/>
+            </labels>
+        </test-case>
+        <test-case start="1525112483858" stop="1525112485604" status="passed">
+            <name>testIphone</name>
+            <steps/>
+            <attachments/>
+            <labels>
+                <label name="host" value="60300424f02f"/>
+                <label name="thread" value="52@60300424f02f.main(1)"/>
+            </labels>
+        </test-case>
+    </test-cases>
+    <labels>
+        <label name="framework" value="TestNG"/>
+        <label name="language" value="JAVA"/>
+    </labels>
+</ns2:test-suite>

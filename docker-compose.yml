@@ -58,7 +58,7 @@ services:
         - HUB_PORT_4444_TCP_PORT=4444
    
    app:
-      image: taller-app
+      #image: taller-app
       build: 
         context: .
       depends_on:
@@ -72,3 +72,4 @@ services:
         - $PWD/reports/surefire-reports:/root/automationFra mework/reports/surefire-reports:rw
       networks:
         - hub
+
