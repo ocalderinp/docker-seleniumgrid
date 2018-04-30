@@ -1,2 +1,5 @@
-# Se ignora la generacion de reportes
-reports/
+# ignore files in folder reports
+reports/* 
+
+# but keep the folder
+!reports/.dummy
