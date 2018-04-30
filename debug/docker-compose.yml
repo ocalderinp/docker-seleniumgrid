@@ -1,0 +1,41 @@
+version: "3"
+
+networks:
+  debug_hub:
+    driver: bridge
+    
+services:
+   seleniumhub:
+    image: selenium/hub
+    ports:
+       - 4444:4444
+    container_name: selenium-hub-debug
+    networks:
+        - debug_hub
+
+   firefoxnodedebug:
+     image: selenium/node-firefox-debug
+     depends_on:
+        - seleniumhub
+     container_name: firefox_node_debug
+     ports:
+        - 4445:5900
+     networks:
+        - debug_hub
+     environment:
+        - HUB_PORT_4444_TCP_ADDR=selenium-hub-debug
+        - HUB_PORT_4444_TCP_PORT=4444
+
+   chromenodedebug:
+      image: selenium/node-chrome-debug
+      depends_on:
+        - seleniumhub
+      container_name: chrome_node_debug
+      ports:
+        - 4446:5900
+      networks:
+        - debug_hub
+      environment:
+        - HUB_PORT_4444_TCP_ADDR=selenium-hub-debug
+        - HUB_PORT_4444_TCP_PORT=4444
+

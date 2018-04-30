@@ -1,0 +1,74 @@
+version: "3"
+
+networks:
+  hub:
+    driver: bridge
+    
+services:
+   seleniumhub:
+    image: selenium/hub
+    ports:
+       - 4444:4444
+    container_name: selenium-hub
+    networks:
+        - hub
+
+   firefoxnodeone:
+     image: selenium/node-firefox
+     depends_on:
+        - seleniumhub
+     container_name: firefox_node_one
+     networks:
+        - hub
+     environment:
+        - HUB_PORT_4444_TCP_ADDR=selenium-hub
+        - HUB_PORT_4444_TCP_PORT=4444
+
+   firefoxnodetwo:
+     image: selenium/node-firefox
+     depends_on:
+        - seleniumhub
+     container_name: firefox_node_two
+     networks:
+        - hub
+     environment:
+        - HUB_PORT_4444_TCP_ADDR=selenium-hub
+        - HUB_PORT_4444_TCP_PORT=4444
+
+   chromenodeone:
+      image: selenium/node-chrome
+      depends_on:
+        - seleniumhub
+      container_name: chrome_node_one
+      networks:
+        - hub
+      environment:
+        - HUB_PORT_4444_TCP_ADDR=selenium-hub
+        - HUB_PORT_4444_TCP_PORT=4444
+
+   chromenodetwo:
+      image: selenium/node-chrome
+      depends_on:
+        - seleniumhub
+      container_name: chrome_node_two
+      networks:
+        - hub
+      environment:
+        - HUB_PORT_4444_TCP_ADDR=selenium-hub
+        - HUB_PORT_4444_TCP_PORT=4444
+   
+   app:
+      image: taller-app
+      build: 
+        context: .
+      depends_on:
+        - seleniumhub
+        - firefoxnodeone
+        - firefoxnodetwo
+        - chromenodeone
+        - chromenodetwo      
+      volumes:
+        - $PWD/reports/allure-results:/root/automationFramework/reports/allure-results:rw
+        - $PWD/reports/surefire-reports:/root/automationFra mework/reports/surefire-reports:rw
+      networks:
+        - hub
