@@ -58,7 +58,6 @@ services:
         - HUB_PORT_4444_TCP_PORT=4444
    
    app:
-      #image: taller-app
       build: 
         context: .
       depends_on:

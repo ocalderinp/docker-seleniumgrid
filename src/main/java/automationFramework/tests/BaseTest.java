@@ -17,14 +17,15 @@ import java.lang.reflect.Method;
 import java.net.URL;
 
 import static automationFramework.utils.Utils.applyDefaultIfMissing;
+import static automationFramework.utils.datatypes.BrowserType.CHROME;
 
 public class BaseTest {
 
     protected static WebDriver driver;
     private static String environment = applyDefaultIfMissing(System.getProperty("environment"), "QA");
     protected static GetProperties properties = new GetProperties(environment);
-    private static String browser = properties.getString("BROWSER").toUpperCase();
     private static String hubUrl = applyDefaultIfMissing(System.getProperty("hub"), "http://localhost:4444");
+    private static String browser = applyDefaultIfMissing(System.getProperty("browser"), "firefox");
 
     @BeforeMethod
     public void setUp(Method method) throws Exception {
@@ -38,6 +39,7 @@ public class BaseTest {
                 capabilities = DesiredCapabilities.chrome();
                 ChromeOptions options = new ChromeOptions();
                 options.addArguments("--disable-extensions");
+                options.addArguments("start-maximized");
                 capabilities.setCapability(ChromeOptions.CAPABILITY, options);
                 break;
             case IE:
@@ -54,9 +56,10 @@ public class BaseTest {
                 capabilities = DesiredCapabilities.firefox();
         }
         try {
-            System.out.println("****HUB_URL: " + hubUrl + "/wd/hub");
             driver = new RemoteWebDriver(new URL(hubUrl + "/wd/hub"), capabilities);
-            driver.manage().window().maximize();
+            if(!browserType.equals(CHROME)){
+		driver.manage().window().maximize();	
+	    }
             navigateToHome();
         } catch (Exception e) {
             System.out.println(e.getMessage());
