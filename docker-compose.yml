@@ -13,7 +13,7 @@ services:
     networks:
         - hub
 
-   firefoxnodeone:
+   firefoxnode:
      image: selenium/node-firefox
      depends_on:
         - seleniumhub
@@ -24,18 +24,7 @@ services:
         - HUB_PORT_4444_TCP_ADDR=selenium-hub
         - HUB_PORT_4444_TCP_PORT=4444
 
-   firefoxnodetwo:
-     image: selenium/node-firefox
-     depends_on:
-        - seleniumhub
-     container_name: firefox_node_two
-     networks:
-        - hub
-     environment:
-        - HUB_PORT_4444_TCP_ADDR=selenium-hub
-        - HUB_PORT_4444_TCP_PORT=4444
-
-   chromenodeone:
+   chromenode:
       image: selenium/node-chrome
       depends_on:
         - seleniumhub
@@ -45,27 +34,14 @@ services:
       environment:
         - HUB_PORT_4444_TCP_ADDR=selenium-hub
         - HUB_PORT_4444_TCP_PORT=4444
-
-   chromenodetwo:
-      image: selenium/node-chrome
-      depends_on:
-        - seleniumhub
-      container_name: chrome_node_two
-      networks:
-        - hub
-      environment:
-        - HUB_PORT_4444_TCP_ADDR=selenium-hub
-        - HUB_PORT_4444_TCP_PORT=4444
-   
+ 
    app:
       build: 
         context: .
       depends_on:
         - seleniumhub
-        - firefoxnodeone
-        - firefoxnodetwo
-        - chromenodeone
-        - chromenodetwo      
+        - firefoxnode
+        - chromenode              
       volumes:
         - $PWD/reports/allure-results:/root/automationFramework/reports/allure-results:rw
         - $PWD/reports/surefire-reports:/root/automationFra mework/reports/surefire-reports:rw
