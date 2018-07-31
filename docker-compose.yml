@@ -5,7 +5,7 @@ networks:
     driver: bridge
     
 services:
-   seleniumhub:
+    seleniumhub:
     image: selenium/hub
     ports:
        - 4444:4444
@@ -38,6 +38,7 @@ services:
    app:
       build: 
         context: .
+      container_name: app
       depends_on:
         - seleniumhub
         - firefoxnode
