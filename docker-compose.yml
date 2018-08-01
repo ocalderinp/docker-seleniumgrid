@@ -1,51 +1,44 @@
 version: "3"
-
-networks:
-  hub:
+networks: 
+  hub: 
     driver: bridge
-    
-services:
-    seleniumhub:
-    image: selenium/hub
-    ports:
-       - 4444:4444
+services: 
+  app: 
+    build: 
+      context: "."
+    container_name: app
+    depends_on: 
+      - seleniumhub
+      - firefoxnode
+      - chromenode
+    networks: 
+      - hub
+    volumes: 
+      - "$PWD/reports:/root/automationFramework/reports:rw"
+  chromenode: 
+    container_name: chrome_node
+    depends_on: 
+      - seleniumhub
+    environment: 
+      - HUB_PORT_4444_TCP_ADDR=selenium-hub
+      - HUB_PORT_4444_TCP_PORT=4444
+    image: selenium/node-chrome
+    networks: 
+      - hub
+  firefoxnode: 
+    container_name: firefox_node
+    depends_on: 
+      - seleniumhub
+    environment: 
+      - HUB_PORT_4444_TCP_ADDR=selenium-hub
+      - HUB_PORT_4444_TCP_PORT=4444
+    image: selenium/node-firefox
+    networks: 
+      - hub
+  seleniumhub: 
     container_name: selenium-hub
-    networks:
-        - hub
-
-   firefoxnode:
-     image: selenium/node-firefox
-     depends_on:
-        - seleniumhub
-     container_name: firefox_node_one
-     networks:
-        - hub
-     environment:
-        - HUB_PORT_4444_TCP_ADDR=selenium-hub
-        - HUB_PORT_4444_TCP_PORT=4444
-
-   chromenode:
-      image: selenium/node-chrome
-      depends_on:
-        - seleniumhub
-      container_name: chrome_node_one
-      networks:
-        - hub
-      environment:
-        - HUB_PORT_4444_TCP_ADDR=selenium-hub
-        - HUB_PORT_4444_TCP_PORT=4444
- 
-   app:
-      build: 
-        context: .
-      container_name: app
-      depends_on:
-        - seleniumhub
-        - firefoxnode
-        - chromenode              
-      volumes:
-        - $PWD/reports/allure-results:/root/automationFramework/reports/allure-results:rw
-        - $PWD/reports/surefire-reports:/root/automationFra mework/reports/surefire-reports:rw
-      networks:
-        - hub
-
+    image: selenium/hub
+    networks: 
+      - hub
+    ports: 
+      - "4444:4444"
