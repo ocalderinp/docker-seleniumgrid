@@ -18,6 +18,9 @@ ENV HOME /root
 ENV HUB_TCP_ADDR http://selenium-hub
 ENV HUB_TCP_PORT 4444
 
+# Define working directory.
+WORKDIR /root/automationFramework
+
 # Prepare by downloading dependencies
 ADD pom.xml /root/automationFramework/pom.xml
 RUN ["mvn", "dependency:resolve"]
