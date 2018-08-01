@@ -18,23 +18,20 @@ ENV HOME /root
 ENV HUB_TCP_ADDR http://selenium-hub
 ENV HUB_TCP_PORT 4444
 
-# Define working directory.
-WORKDIR /root/automationFramework
-
 # Prepare by downloading dependencies
 ADD pom.xml /root/automationFramework/pom.xml
 RUN ["mvn", "dependency:resolve"]
 
-# Adding source
+# Adding sources
 ADD src /root/automationFramework/src
-
 ADD execute_test.sh /root/automationFramework
 
+# Creating folder for reports
 RUN mkdir -p /root/automationFramework/reports && \
     chmod +x /root/automationFramework/execute_test.sh
 
-VOLUME [/root/automationFramework/reports/allure-results]
-VOLUME [/root/automationFramework/reports/surefire-reports]
+# Adding volume for reports
+VOLUME ["/root/automationFramework/reports"]
 
 # Execute tests
 ENTRYPOINT ["/root/automationFramework/execute_test.sh"]
