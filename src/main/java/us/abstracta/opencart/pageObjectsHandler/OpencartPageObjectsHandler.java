@@ -1,6 +1,6 @@
 package us.abstracta.opencart.pageObjectsHandler;
 
-import automationFramework.handlers.PageObjectsHandler;
+import automation.handlers.PageObjectsHandler;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import us.abstracta.opencart.pages.Cart;

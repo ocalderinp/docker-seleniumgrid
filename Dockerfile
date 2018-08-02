@@ -21,13 +21,13 @@ ENV HUB_TCP_PORT 4444
 # Define working directory.
 WORKDIR /root/automationFramework
 
-# Prepare by downloading dependencies
-ADD pom.xml /root/automationFramework/pom.xml
-RUN ["mvn", "dependency:resolve"]
-
 # Adding sources
 ADD src /root/automationFramework/src
 ADD execute_test.sh /root/automationFramework
+
+# Prepare by downloading dependencies
+ADD pom.xml /root/automationFramework/pom.xml
+RUN ["mvn", "dependency:resolve"]
 
 # Creating folder for reports
 RUN mkdir -p /root/automationFramework/reports && \

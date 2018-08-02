@@ -39,6 +39,14 @@
             </exclusions>
         </dependency>
 
+        <dependency>
+            <groupId>automation.ocalderin</groupId>
+            <artifactId>selenium-automation-framework</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/libs/seleniumautomationframework.jar</systemPath>
+        </dependency>
+
 
     </dependencies>
 

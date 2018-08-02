@@ -1,11 +1,14 @@
 package us.abstracta.opencart.pages;
 
-import automationFramework.utils.datatypes.Wait;
+import automation.utils.datatypes.Wait;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import us.abstracta.opencart.bases.OpencartBaseElement;
 import us.abstracta.opencart.pageObjectsHandler.OpencartPageObjectsHandler;
+
+import static automation.utils.WebDriverUtils.addWait;
+import static automation.utils.WebDriverUtils.findElement;
 
 public class Cart extends OpencartBaseElement {
 

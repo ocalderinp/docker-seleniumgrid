@@ -1,6 +1,6 @@
 package us.abstracta.opencart.bases;
 
-import automationFramework.pageObjects.BasePage;
+import automation.pageObjects.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import us.abstracta.opencart.pageObjectsHandler.OpencartPageObjectsHandler;
