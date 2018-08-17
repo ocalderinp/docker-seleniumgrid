@@ -11,16 +11,20 @@ pipeline {
     agent any
     stages { 
         stage('SCM: code update') {
-            checkout ([
-                $class: 'GitSCM', branches: [[name: 'master']],
-                userRemoteConfigs: [[url: 'https://github.com/ocalderinp/docker-seleniumgrid']]
-            ])
+        steps {
+                checkout ([
+                    $class: 'GitSCM', branches: [[name: 'master']],
+                    userRemoteConfigs: [[url: 'https://github.com/ocalderinp/docker-seleniumgrid']]
+                ])
+            }
         }
         stage('Execute test') {
-            step([
-            $class: 'DockerComposeBuilder', dockerComposeFile: 'docker-compose.yml', option: [$class: 'StartSrvice'], useCustomDockerComposeFile: true
-        ])   
-        } 
+            steps {
+                step([
+                $class: 'DockerComposeBuilder', dockerComposeFile: 'docker-compose.yml', option: [$class: 'StartSrvice'], useCustomDockerComposeFile: true
+            ])   
+            } 
+        }
     }
     post {
         always {
