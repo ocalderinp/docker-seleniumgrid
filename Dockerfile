@@ -23,7 +23,7 @@ WORKDIR /root/automationFramework
 
 # Adding sources
 ADD src /root/automationFramework/src
-ADD execute_test.sh /root/automationFramework
+ADD scripts/execute_test.sh /root/automationFramework
 
 # Prepare by downloading dependencies
 ADD pom.xml /root/automationFramework/pom.xml
